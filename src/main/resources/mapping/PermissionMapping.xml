@@ -31,4 +31,8 @@
             description = #{description}
         where name = #{name}
     </update>
+    <select id="selectAllPermission" resultMap="resultMap">
+        select *
+        from system_permission
+    </select>
 </mapper>

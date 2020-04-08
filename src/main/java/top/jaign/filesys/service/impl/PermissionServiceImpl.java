@@ -6,6 +6,8 @@ import top.jaign.filesys.entity.Permission;
 import top.jaign.filesys.mapper.PermissionMapper;
 import top.jaign.filesys.service.IPermissionService;
 
+import java.util.List;
+
 @Service
 public class PermissionServiceImpl implements IPermissionService {
 
@@ -31,5 +33,10 @@ public class PermissionServiceImpl implements IPermissionService {
     @Override
     public void updatePermission(Permission permission) {
         permissionMapper.updatePermission(permission);
+    }
+
+    @Override
+    public List<Permission> findAllPermissions() {
+        return permissionMapper.selectAllPermission();
     }
 }
