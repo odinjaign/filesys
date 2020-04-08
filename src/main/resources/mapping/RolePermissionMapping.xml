@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.jaign.filesys.mapper.RolePermissionMapper">
+
+    <resultMap id="resultMap" type="top.jaign.filesys.entity.RolePermission">
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="permission_name" jdbcType="VARCHAR" property="permissionName"/>
+    </resultMap>
+
+    <select id="selectByRoleName" resultMap="resultMap" >
+        select * from system_role_permission where role_name=#{rolename}
+    </select>
+
+</mapper>
