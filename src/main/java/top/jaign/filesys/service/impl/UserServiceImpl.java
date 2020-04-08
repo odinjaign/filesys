@@ -1,5 +1,7 @@
 package top.jaign.filesys.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.jaign.filesys.entity.*;
@@ -9,9 +11,11 @@ import top.jaign.filesys.service.IUserService;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class UserServiceImpl implements IUserService {
 
+    private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
@@ -29,6 +33,10 @@ public class UserServiceImpl implements IUserService {
     public User findUserByUsername(String username) {
         //查询用户
         User user = userMapper.selectByUsername(username);
+        if (user == null) {
+            logger.info("用户不存在");
+            return null;
+        }
         //查询用户角色
         List<UserRole> userRoles = userRoleMapper.selectByUsername(username);
         List<Role> roles = new ArrayList<>();
@@ -50,15 +58,53 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean addRole2User(String username, String rolename) {
-        //判断角色是否存在
-        User user = userMapper.selectByUsername(username);
-        if (user == null) {
-            System.out.println("用户不存在");
-            return false;
-        }
-        Role role = roleMapper.selectByName(rolename);
+        UserRole userRole = new UserRole();
+        userRole.setUserName(username);
+        userRole.setRoleName(rolename);
+        userRoleMapper.insertUserRole(userRole);
+        return true;
+    }
 
-
+    @Override
+    public boolean removeRole4User(String username, String rolename) {
+        UserRole userRole = new UserRole();
+        userRole.setUserName(username);
+        userRole.setRoleName(rolename);
+        userRoleMapper.removeUserRole(userRole);
         return false;
+    }
+
+    @Override
+    public boolean userHaveRole(String username, String rolename) {
+        UserRole userRole = new UserRole();
+        userRole.setUserName(username);
+        userRole.setRoleName(rolename);
+        if (userRoleMapper.selectUserRole(userRole) == null) {
+            return false;
+        } else
+            return true;
+    }
+
+    @Override
+    public boolean userExist(String username) {
+        if (userMapper.selectByUsername(username) == null) {
+            return false;
+        } else
+            return false;
+    }
+
+    @Override
+    public void addUser(User user) {
+        userMapper.insertUser(user);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userMapper.deleteUser(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateUser(user);
     }
 }

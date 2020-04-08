@@ -8,4 +8,7 @@ import java.util.List;
 @Repository
 public interface RolePermissionMapper {
     List<RolePermission> selectByRoleName(String rolename);
+    void insertRolePermission(RolePermission rolePermission);
+    void removeRolePermission(RolePermission rolePermission);
+    RolePermission selectRolePermission(RolePermission rolePermission);
 }

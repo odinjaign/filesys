@@ -8,11 +8,27 @@
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
 
-    <select id="selectByName" resultMap="resultMap" >
-        select * from system_permission where name=#{name}
+    <select id="selectByName" resultMap="resultMap">
+        select *
+        from system_permission
+        where name = #{name}
     </select>
 
-    <insert id="addPermission">
-       <!-- TODO -->
+    <insert id="insertPermission">
+        insert into system_permission(name, url, description)
+            value (#{name}, #{url}, #{description})
     </insert>
+    <delete id="deletePermission">
+        delete
+        from system_permission
+        where name = #{name}
+          and url = #{url}
+          and description = #{description}
+    </delete>
+    <update id="updatePermission">
+        update system_permission
+        set url         = #{url},
+            description = #{description}
+        where name = #{name}
+    </update>
 </mapper>

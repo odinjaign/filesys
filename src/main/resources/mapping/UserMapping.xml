@@ -8,8 +8,26 @@
         <result column="password_salt" jdbcType="VARCHAR" property="passwordSalt"/>
     </resultMap>
 
-    <select id="selectByUsername" resultMap="resultMap" >
-        select * from system_user where username=#{username}
+    <select id="selectByUsername" resultMap="resultMap">
+        select *
+        from system_user
+        where username = #{username}
     </select>
+    <insert id="insertUser">
+        insert into system_user(username, password, password_salt)
+            value (#{username}, #{password}, #{passwordSalt})
+    </insert>
+    <delete id="deleteUser">
+        delete
+        from system_user
+        where username = #{username}
+    </delete>
+    <update id="updateUser">
+        update system_user
+        set password     = #{password},
+            password_salt= #{passwordSalt}
+        where username = #{username}
+    </update>
+
 
 </mapper>

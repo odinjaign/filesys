@@ -7,8 +7,26 @@
         <result column="permission_name" jdbcType="VARCHAR" property="permissionName"/>
     </resultMap>
 
-    <select id="selectByRoleName" resultMap="resultMap" >
-        select * from system_role_permission where role_name=#{rolename}
+    <select id="selectByRoleName" resultMap="resultMap">
+        select *
+        from system_role_permission
+        where role_name = #{rolename}
+    </select>
+    <insert id="insertRolePermission">
+        insert into system_role_permission(role_name, permission_name)
+            value (#{roleName}, #{permissionName})
+    </insert>
+    <delete id="removeRolePermission">
+        delete
+        from system_role_permission
+        where role_name = #{roleName}
+          and permission_name = #{permissionName}
+    </delete>
+    <select id="selectRolePermission" resultMap="resultMap">
+        select *
+        from system_role_permission
+        where role_name = #{roleName}
+          and permission_name = #{permissionName}
     </select>
 
 </mapper>

@@ -7,8 +7,28 @@
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
     </resultMap>
 
-    <select id="selectByUsername" resultMap="resultMap" >
-        select * from system_user_role where user_name=#{username}
+    <select id="selectByUsername" resultMap="resultMap">
+        select *
+        from system_user_role
+        where user_name = #{username}
+    </select>
+
+    <insert id="insertUserRole">
+        insert into system_user_role(user_name, role_name) value (#{userName}, #{roleName})
+    </insert>
+
+    <delete id="removeUserRole">
+        delete
+        from system_user_role
+        where user_name = #{userName}
+          and role_name = #{roleName}
+    </delete>
+
+    <select id="selectUserRole" resultMap="resultMap">
+        select *
+        from system_user_role
+        where user_name = #{userName}
+          and role_name = #{roleName}
     </select>
 
 </mapper>

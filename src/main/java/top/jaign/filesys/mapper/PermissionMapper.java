@@ -6,5 +6,7 @@ import top.jaign.filesys.entity.Permission;
 @Repository
 public interface PermissionMapper {
     Permission selectByName(String name);
-    void addPermission(Permission permission);
+    void insertPermission(Permission permission);
+    void deletePermission(Permission permission);
+    void updatePermission(Permission permission);
 }

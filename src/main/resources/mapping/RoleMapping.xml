@@ -7,8 +7,25 @@
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
 
-    <select id="selectByName" resultMap="resultMap" >
-        select * from system_role where name=#{name}
+    <select id="selectByName" resultMap="resultMap">
+        select *
+        from system_role
+        where name = #{name}
     </select>
+    <insert id="insertRole">
+        insert into system_role(name, description)
+            value (#{name}, #{description})
+    </insert>
+    <delete id="deleteRole">
+        delete
+        from system_role
+        where name = #{name}
+          and description = #{description}
+    </delete>
+    <update id="updateRole">
+        update system_role
+        set description = #{description}
+        where name = #{name}
+    </update>
 
 </mapper>
